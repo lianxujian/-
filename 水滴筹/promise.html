@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function _Promise(){
+			this.status = 'pending';
+			this.statusSave = [];//存储then回调的两个函数体A和B，如：new _Promise().then(A,B)
+			this.msg = 'none';
+			var self = this;
+			var executor = arguments[0];
+			executor(function(){//resolve函数的实现
+				var success = arguments[0];//resolve函数传入的参数
+				self.status = 'resolved';
+				self.msg = success;
+				for (const { resolve } of self.statusSave) {
+					resolve(success);
+				}
+			},function(){//reject函数的实现
+				var err = arguments[0];//resolve函数传入的参数
+				self.status = 'rejected';
+				self.msg = err;
+				for (const { reject } of self.statusSave) {
+					reject(err);
+				}
+			});
+			// return this;
+		}
+		_Promise.prototype.then = function(){
+			var resolve = arguments[0];
+			var reject = arguments[1];
+			if(this.status == 'resolved'){
+				resolve(this.msg);
+			}else if(this.status == 'rejected'&& reject){
+				reject(this.msg);
+			}else{
+				this.statusSave.push({resolve,reject});//
+			}
+		}
+		//同步
+		new _Promise((resolve,reject) => {reject('async emit')}).then(function(msg){
+			console.log(msg);
+			console.log('success');
+		},function(msg){
+			console.log(msg);
+			console.log('fail!');
+		});
+		//async emit
+		//fail
+		//异步
+		new _Promise((resolve,reject) => {
+			setTimeout(()=>{
+				resolve('async emit');
+			},1000)
+		}).then(function(msg){
+			console.log(msg);
+			console.log('success');
+		},function(msg){
+			console.log(msg);
+			console.log('fail!');
+		});
+	</script>
+</body>
+</html>
