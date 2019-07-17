@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //数组去重
+        // let set = new Set([1, 2, 3]);
+        // console.log([...set]);
+        // //console.log(set.has(1));
+
+        // //字符串去重
+        // console.log([...new Set('ababbc')].join(''))
+
+        // set.add(4)
+        // console.log(set.size)
+        // console.log(set.has(3))
+        // set.delete(4)
+        // console.log(set)
+
+        // console.log(Array.from(new Set([1, 2, 2, 3, 4])))
+
+        let set = new Set(['red', 'green', 'blue']);
+
+        for (let item of set.keys()) { //values()  entries()  或者直接遍历set
+            //console.log(item);
+        }
+        //new Map() 与 Object 的区别 键名是否可以是对象
+
+        let arr = ['a', 'b', 'c'];
+        let iter = arr[Symbol.iterator](); //便历器
+
+        // console.log(iter.next()) // { value: 'a', done: false }
+        // console.log(iter.next()) // { value: 'b', done: false }
+        // console.log(iter.next()) // { value: 'c', done: false }
+        // console.log(iter.next()) // { value: undefined, done: true }
+
+        //Proxy Object拦截
+        var obj = new Proxy({}, {
+            get: function(target, key, receiver) {
+                console.log(`getting ${key}!`);
+                return Reflect.get(target, key, receiver);
+            },
+            set: function(target, key, value, receiver) {
+                console.log(`setting ${key}!`);
+                return Reflect.set(target, key, value, receiver);
+            }
+        });
+        obj.count = 1
+            //  setting count!
+            ++obj.count
+            //  getting count!
+            //  setting count!
+            //  2
+            //console.log(obj.count)
+    </script>
+</body>
+
+</html>
