@@ -62,6 +62,9 @@
 			console.log(msg);
 			console.log('fail!');
 		});
+
+        //Promise本轮事件循环的开始，setTimeout下一轮事件循环的开始
+        //Promise.then()  catch()  finally()  all()  race()  resolve()  reject()   catch()可以捕捉到then()里的报错（catch()在then()后面执行）
 	</script>
 </body>
 </html>

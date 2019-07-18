@@ -25,7 +25,7 @@
 
 	    let getList = async () => {
 	        let c = await count()
-	        console.log('async')   
+	        console.log('async')
 	        let l = await list()
 	        return { count: c, list: l }
 	    }
@@ -38,10 +38,10 @@
 	        console.timeEnd('start')
 	        console.log(err)
 	    })*/
-	    
+
 	    //start: 1000.81494140625ms
 	    //promise故意抛出异常
-	    
+
 	    //并行
 	    let count = ()=>{
 		    return new Promise((resolve,reject) => {
@@ -74,13 +74,13 @@
 
 		const log = {};
 
-log.levels = {
-  DEBUG: Symbol('debug'),
-  INFO: Symbol('info'),
-  WARN: Symbol('warn')
-};
-console.log(log.levels.DEBUG, 'debug message');
-console.log(log.levels.INFO, 'info message');
+        log.levels = {
+          DEBUG: Symbol('debug'),
+          INFO: Symbol('info'),
+          WARN: Symbol('warn')
+        };
+        console.log(log.levels.DEBUG, 'debug message');
+        console.log(log.levels.INFO, 'info message');
 	</script>
 </body>
 </html>
