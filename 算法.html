@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var bar = 0;
+    var obj = {
+        bar: 1,
+        foo: function(){
+            console.log(this.bar);
+        }
+    }
+    var obj2 = {
+        bar: 2,
+        foo: obj.foo
+    }
+
+    var obj3 = {
+        bar: 3,
+        foo: function () {
+            return obj.foo;
+        }
+    }
+    var tempFoo = obj2.foo;
+    obj.foo(); //1
+    obj2.foo(); //2
+    obj3.foo()(); //0
+    tempFoo(); //0
+</script>
+</html>
