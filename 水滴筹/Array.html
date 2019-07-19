@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组方法应用</title>
+</head>
+<body>
+<script>
+    //（两个数组）排重push
+    /* const arr1 = [{
+         name:'1',
+         id:1
+     },{
+         name:'2',
+         id:2
+     },{
+         name:'3',
+         id:3
+     },{
+         name:'4',
+         id:4
+     }]
+     const arr2 = [{
+         name:'5',
+         id:5
+     },{
+         name:'2',
+         id:2
+     },{
+         name:'6',
+         id:6
+     },{
+         name:'4',
+         id:4
+     }]
+     arr2.forEach(item => {
+         if(!arr1.some(item2 => item2.id == item.id)){
+             arr1.push(item);
+         }
+     })
+     console.log(arr1);
+     console.log(arr1.find(item => item.id == 8))*/
+    //（两个数组）通过id匹配数组
+    /*const arr1 = [{
+        name:'1',
+        id:1
+    },{
+        name:'2',
+        id:2
+    },{
+        name:'3',
+        id:3
+    },{
+        name:'4',
+        id:4
+    }]
+    const arr2 = [{
+        age:18,
+        id:2
+    },{
+        age:17,
+        id:1
+    },{
+        age:20,
+        id:4
+    },{
+        age:19,
+        id:3
+    }]
+    arr1.forEach(item => {
+        let matchItem = arr2.find(item1 => item1.id == item.id);
+        if(matchItem){
+            item.age = matchItem.age;
+        }
+    })
+    console.log(arr1);*/
+</script>
+</body>
+</html>
