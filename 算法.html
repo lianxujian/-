@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
 
 </body>
 <script>
+    // 1、
     var bar = 0;
     var obj = {
         bar: 1,
-        foo: function(){
+        foo: function() {
             console.log(this.bar);
         }
     }
@@ -22,14 +25,87 @@
 
     var obj3 = {
         bar: 3,
-        foo: function () {
+        foo: function() {
             return obj.foo;
         }
     }
     var tempFoo = obj2.foo;
-    obj.foo(); //1
-    obj2.foo(); //2
-    obj3.foo()(); //0
-    tempFoo(); //0
+    // obj.foo(); //1
+    // obj2.foo(); //2
+    // obj3.foo()(); //0
+    // tempFoo(); //0
+
+    //2、
+    function model(n, o) {
+        console.log(o)
+        return {
+            model: function(m) {
+                return model(m, n)
+            }
+        }
+    }
+    //var a = model(0) //undefined
+    // a.model(1) //0
+    // a.model(2) //0
+    // a.model(3) //0
+    // var b = model(0).model(1).model(2).model(3) //undefined 0 1 2
+    // var c = model(0).model(1); //undefined 0
+    // c.model(2) //1
+    // c.model(3) //1
+
+    //3、
+    var length = 10;
+
+    function fn() {
+        console.log(this.length)
+    }
+    var obj = {
+        length: 5,
+        method(fn) {
+            fn()
+            console.log(arguments[0])
+            arguments[0]()
+        }
+    }
+    obj.method(fn) //10 1   Window Arguments
+
+    //4、
+    var numberArray = [3, 6, 2, 4, 1, 5];
+    //1、console.log(numberArray.pop())   //5
+    //2、console.log(numberArray.unshift(6))  //7 
+    //3、console.log(numberArray.splice(0, 1))       //[3]
+
+    console.log(typeof new String(1), typeof String(1))
+
+    for (var i = 1; i <= 3; i++) {
+        setTimeout(function() {
+            console.log(i);
+        }, 0);
+    } //4 4 4
+
+    //5、
+    // var m = true;
+    // setTimeout(function() {
+    //     m = false;
+    // }, 3000)
+    // while (m) {}
+    // alert('OK');
+    //永远不会弹出ok
+
+    //6、
+    const a = [];
+    for (var n = 0; n < 10; n++) {
+        a.push(function() {
+            console.log(n)
+        })
+    }
+    a[0]()
+    a[1]()
+
+    //7、
+    var a1 = [1, 2];
+    var b1 = [1, 2];
+    console.log(a1 + b1)
 </script>
+
 </html>

@@ -30,11 +30,18 @@
 </head>
 
 <body>
+    <select name="" id="select">
+        <option value="山西">山西</option>
+        <option value="北京">北京</option>
+        <option value="上海">上海</option>
+    </select>
     <div class='box'>樊虎</div>
     <div class='box2'>樊虎</div>
 </body>
+<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
 <script>
     window.onload = function() {
+        $("#select").find("option[value='北京']").attr("selected", true);
         //默认1rem为16px;如果设置html{font-size:100px;}那就改变默认设置成1rem为100px了;
 
         /*720代表设计师给的设计稿的宽度，你的设计稿是多少，就写多少;100代表换算比例，这里写100是
@@ -67,6 +74,8 @@
     Ajax异步请求
     主线程从"任务队列"中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。只要主线程空了，就会去读取"任务队列"，这就是JavaScript的运行机制
     */
+    //promise.then属于微任务,setTimeout属于宏任务,当前第一个宏任务是读取script内的所有代码,
+    //微任务会在宏任务执行结束后立即执行,接着才到下一个宏任务,也就是setTimeout
 
     //2、
     /*

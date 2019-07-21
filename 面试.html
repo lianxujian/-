@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .aa {
+            color: red;
+        }
+        
+        .bb {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <p class='bb aa'>樊虎</p>
+    <script>
+        //面试题汇总
+        //1.  XHTML和HTML的区别
+        //HTML 和 XHTML 的区别简单来说，XHTML 可以认为是 XML 版本的 HTML，为符合 XML 要求，XHTML 语法上要求更严谨些
+        //XHTML:标签必须闭合、标签必须小写、所有的参数值，包括数字，必须用双引号括起来
+
+        //2、css引入的方式有哪些， link和@import的区别
+        // 区别1：link是XHTML标签，除了加载CSS外，还可以定义RSS等其他事务；@import属于CSS范畴，只能加载CSS。
+        // 区别2：link引用CSS时，在页面载入时同时加载；@import需要页面网页完全载入以后加载。
+        // 区别3：link是XHTML标签，无兼容问题；@import是在CSS2.1提出的，低版本的浏览器不支持。
+        // 区别4：link支持使用Javascript控制DOM去改变样式；而@import不支持。
+
+        //img alt是在图片不能正常加载时候显示的提示语
+
+        //4、写一个获取非行间样式的方法
+        function getStyle(obj, attr) { //获取非行间样式，obj是对象，attr是值
+            if (obj.currentStyle) { //针对ie获取非行间样式
+                return obj.currentStyle[attr];
+            } else {
+                return getComputedStyle(obj, false)[attr]; //针对非ie
+            };
+        };
+
+        //5、vue-router刷新的几种方式
+        //方案一:使用location.reload()
+        //方案二:使用this.$router.go(0)
+        //以上两种方案相当于ctrl+F5强制刷新,整个页面重新加载的时候会出现白屏的情况,体验不好
+        //方案三:在项目新建一个空白页面,先跳转到这个空白页，然后再立马跳转回来,不会出现白屏现象
+        //方案四：通过让 <router-view><router-view> 先v-if=false 然后再 v-if=true;
+
+        //6 、移动端兼容问题 https://www.jianshu.com/p/cb2d8ca8cff2
+        //在css中如何处理ie,firefox,chrome兼容性问题 https://www.cnblogs.com/TCB-Java/p/6853955.html
+        //前端性能优化方法  https://www.cnblogs.com/coober/p/8078847.html
+        //javascript-js实现多线程 https://www.cnblogs.com/haodawang/articles/5850822.html
+        //webpack和gulp的优缺点 https://www.cnblogs.com/RuMengkai/p/6667321.html
+        //请写出js实现继承的几种方式  https://blog.csdn.net/longyin0528/article/details/80504270
+        //在移动端遇到哪些IOS和安卓的兼容性问题  https://www.jianshu.com/p/c55d4ef43859
+
+        //7、Null转换成数字0,undefined转换成NaN（转化为数值型）
+
+        //8、简述HTTP缓存策略(本地缓存/重新请求考虑) 
+        // 当浏览器第一次发送http请求时,本地一般没有改资源的缓存,所以请求会发到服务器上获取对应资源,
+        // 服务器在构建响应报文时,通过Cache-Control向客户端说明对于该资源的缓存控制,要如何进行,客户端根据响应报文,
+        // 下次再请求该资源时,如果该缓存未过期,则直接从缓存中读取,如果过期,发送条件式请求到服务器询问该资源是否有效,
+        // 如果有效,服务器返回304,缓存继续有效,如果失效,则响应200,和新的资源
+        // 详情参考: https://www.jianshu.com/p/64d04042014b
+
+        //9、Array :属性：constructor、length、prototype
+        // document的DOMContentLoaded 是当文档的DOM节点加载完毕之后触发
+        // 所有元素可以继承的属性：
+        // 1、元素可见性：visibility、opacity        2、光标属性：cursor
+        // 内联元素可以继承的属性:
+        // 1、字体系列属性        2、除text-indent、text-align之外的文本系列属性
+        // 块级元素可以继承的属性:
+        // 1、text-indent、text-align
+
+        //北京亿动华源
+    </script>
+</body>
+
+</html>
