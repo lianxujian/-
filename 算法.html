@@ -62,9 +62,9 @@
     var obj = {
         length: 5,
         method(fn) {
-            fn()
-            console.log(arguments[0])
-            arguments[0]()
+            fn() //10
+                //console.log(arguments)
+            arguments[0]() //1
         }
     }
     obj.method(fn) //10 1   Window Arguments
@@ -99,13 +99,13 @@
             console.log(n)
         })
     }
-    a[0]()
-    a[1]()
+    a[0]() //10
+    a[1]() //10
 
     //7、
     var a1 = [1, 2];
     var b1 = [1, 2];
-    console.log(a1 + b1)
+    console.log(a1 + b1) //1,21,2
 </script>
 
 </html>
