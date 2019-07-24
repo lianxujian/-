@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" class='input'>
+    <button class="btn">按钮</button>
+</body>
+<script>
+    // 函数节流
+    var timer = null;
+    document.querySelector('.input').onkeyup = function() {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            console.log(1)
+        }, 1000)
+    }
+
+    // 函数防抖
+    var flag = true;
+    document.querySelector('.btn').onclick = function() {
+        if (!flag) {
+            return false;
+        }
+        flag = false;
+        setTimeout(() => {
+            console.log(123)
+            flag = true;
+        }, 1000)
+    }
+</script>
+
+</html>
