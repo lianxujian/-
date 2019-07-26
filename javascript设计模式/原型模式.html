@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1. 方法继承
+        var Parent = function() {}
+        Parent.prototype.show = function() {}
+        var Child = function() {}
+
+        // Child继承Parent的所有原型方法
+        Child.prototype = new Parent()
+        console.log(Child.prototype)
+
+        //2. 所有函数默认继承Object
+        var Foo = function() {}
+        console.log(Foo.prototype.__proto__ === Object.prototype) // true
+
+        //3. Object.create
+        var proto = {
+            a: 1
+        }
+        var propertiesObject = {
+            b: {
+                value: 2
+            }
+        }
+        var obj = Object.create(proto, propertiesObject)
+        console.log(obj.__proto__ === proto) // true
+
+        //4. isPrototypeOf  prototypeObj是否在obj的原型链上
+        console.log(proto.isPrototypeOf(obj))
+
+        //5. instanceof  contructor.prototype是否出现在obj的原型链上
+        //console.log(new Foo() instanceof Foo.prototype.constructor)
+
+        //6. getPrototypeOf  Object.getPrototypeOf(obj) 方法返回指定对象obj的原型（内部[[Prototype]]属性的值）
+        console.log(Object.getPrototypeOf(obj) === obj.__proto__) //都返回 proto对象
+
+        //7. setPrototypeOf 设置一个指定的对象的原型 ( 即, 内部[[Prototype]]属性）到另一个对象或 null（同3）
+        var obj = {}
+        var prototypeObj = {}
+        Object.setPrototypeOf(obj, prototypeObj)
+        console.log(obj.__proto__ === prototypeObj) // true
+    </script>
+</body>
+
+</html>

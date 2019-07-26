@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>state-demo</title>
+</head>
+
+<body>
+    <button id="btn">开关</button>
+    <script>
+        // 定义一个关闭状态的类
+        class OffLightState {
+            constructor(light) {
+                    this.light = light
+                }
+                // 每个类都需要这个方法，在不同状态下按都需要触发这个方法
+            pressBtn() {
+                this.light.setState(this.light.weekLightState)
+                console.log('开启弱光')
+            }
+        }
+
+        // 定义一个弱光状态的类
+        class WeekLightState {
+            constructor(light) {
+                this.light = light
+            }
+            pressBtn() {
+                this.light.setState(this.light.strongLightState)
+                console.log('开启强光')
+            }
+        }
+
+        // 定义一个强光状态的类
+        class StrongLightState {
+            constructor(light) {
+                this.light = light
+            }
+            pressBtn() {
+                this.light.setState(this.light.offLightState)
+                console.log('关闭电灯')
+            }
+        }
+
+        class Light {
+            constructor() {
+                this.offLightState = new OffLightState(this)
+                this.weekLightState = new WeekLightState(this)
+                this.strongLightState = new StrongLightState(this)
+                this.currentState = null
+            }
+            setState(newState) {
+                this.currentState = newState
+            }
+            init() {
+                this.currentState = this.offLightState
+            }
+        }
+
+        let light = new Light()
+        light.init()
+        var btn = document.getElementById('btn')
+        btn.onclick = function() {
+            light.currentState.pressBtn()
+        }
+    </script>
+</body>
+
+</html>
