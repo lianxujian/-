@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1、模块化
+        // es6: import / export
+        // commonjs: require / module.exports / exports
+        // amd: require / defined
+        // require与import的区别
+        // require支持 动态导入，import不支持，正在提案 (babel 下可支持)
+        // require是 同步 导入，import属于 异步 导入
+        // require是 值拷贝，导出值变化不会影响导入值；import指向 内存地址，导入值会随导出值而变化  
+
+        //2、AST
+        // 抽象语法树 (Abstract Syntax Tree)，是将代码逐字母解析成 树状对象 的形式。这是语言之间的转换、代码语法检查，
+        // 代码风格检查，代码格式化，代码高亮，代码错误提示，代码自动补全等等的基础。例如:
+        // function square(n){return n * n}复制代码通过解析转化成的AST如下图:（本目录AST.jpeg图）
+
+        //3、babel编译原理
+        // babylon 将 ES6/ES7 代码解析成 AST ，babel-traverse 对 AST 进行遍历转译，得到新的 AST，
+        // 新 AST 通过 babel-generator 转换成 ES5
+
+        //4、函数柯里化
+        // 在一个函数中，首先填充几个参数，然后再返回一个新的函数的技术，称为函数的柯里化。
+        // 通常可用于在不侵入函数的前提下，为函数 预置通用参数，供多次重复调用。
+
+        const add = function add(x) {
+            return function(y) {
+                return x + y
+            }
+        }
+        const add1 = add(1)
+            //add1(2) === 3 
+            //add1(20) === 21
+
+        //数组乱序：
+        var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        arr.sort(function() {
+            return Math.random() - 0.5;
+        });
+        //数组拆解: flat: [1,[2,3]] --> [1, 2, 3]
+        Array.prototype.flat = function() {
+            this.toString().split(',').map(item => +item)
+        }
+
+        //5、webpack 和 gulp 的区别
+        // webpack是前端构建工具，称为模块打包机，webpack支持模块化；构建前端开发过程中常用的文件， 如：js，css，html，
+        // img等；使用简单方便，自动化构建。webpack是通过loader（加载器）和plugins（插件）对资源进行处理的。
+        // Glup侧重于前端开发的整个过程的控制管理，我们可以通过给glup配置不同的task来让glup实现不同的功能，从而构建整个
+        // 前端开发流程。、（通过gulp中的gulp.task（）方法配置，比如server、sass/less预编译、文件的合并压缩等等）
+        // 区别：
+        // gulp严格上讲，模块化不是他强调的东西，他旨在规范前端开发流程。
+        // webpack更是明显强调模块化开发，而那些文件压缩合并、预处理等功能，不过是他附带的功能。
+        //webpack插件：
+        //内置插件 与 非内置插件（需要require引入）
+        //---------- config 配置类 -----------
+        //（1）ProvidePlugin 用途：$出现，就会自动加载模块；$默认为'jquery'的exports
+        // new webpack.ProvidePlugin({
+        //     $: 'jquery',
+        // })
+        //（2）DefinePlugin 用途：定义全局常量
+        // new webpack.DefinePlugin({
+        //     'process.env': {
+        //         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+        //     },
+        //     PRODUCTION: JSON.stringify(PRODUCTION),
+        //     APP_CONFIG: JSON.stringify(appConfig[process.env.NODE_ENV]),
+        // })
+        //（3）IgnorePlugin 用途：忽略regExp匹配的模块；ExtractTextPlugin 用途：分离css文件
+        //（4）HtmlWebpackPlugin 用途：重构入口html，动态添加<link>和<script>，在以hash命名的文件上非常有用，因为每次编译都会改变
+        // new HtmlWebpackPlugin({
+        //     template: './src/index.html'
+        // })
+        //----------- optimize 优化类 -------------
+        //（5）UglifyJsPlugin 用途：js压缩
+        // 用法： new webpack.optimize.UglifyJsPlugin()
+        //（6）OccurrenceOrderPlugin 用途：排序输出；
+        //（7）CommonsChunkPlugin 用途：合并公共模块为单独文件，比如全局通用的js等，长期不会修改的，从而可以从缓存中取，优化网页性能 
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     names: ['vendor']
+        // })
+    </script>
+</body>
+
+</html>
