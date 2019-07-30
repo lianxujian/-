@@ -59,15 +59,16 @@
         // 区别：
         // gulp严格上讲，模块化不是他强调的东西，他旨在规范前端开发流程。
         // webpack更是明显强调模块化开发，而那些文件压缩合并、预处理等功能，不过是他附带的功能。
-        //webpack插件：
+
+        //webpack插件：https://segmentfault.com/a/1190000008847145?utm_source=tag-newest
         //内置插件 与 非内置插件（需要require引入）
         //---------- config 配置类 -----------
         //（1）ProvidePlugin 用途：$出现，就会自动加载模块；$默认为'jquery'的exports
-        // new webpack.ProvidePlugin({
+        // 用法：new webpack.ProvidePlugin({
         //     $: 'jquery',
         // })
         //（2）DefinePlugin 用途：定义全局常量
-        // new webpack.DefinePlugin({
+        // 用法：new webpack.DefinePlugin({
         //     'process.env': {
         //         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
         //     },
@@ -76,15 +77,15 @@
         // })
         //（3）IgnorePlugin 用途：忽略regExp匹配的模块；ExtractTextPlugin 用途：分离css文件
         //（4）HtmlWebpackPlugin 用途：重构入口html，动态添加<link>和<script>，在以hash命名的文件上非常有用，因为每次编译都会改变
-        // new HtmlWebpackPlugin({
+        // 用法：new HtmlWebpackPlugin({
         //     template: './src/index.html'
         // })
         //----------- optimize 优化类 -------------
         //（5）UglifyJsPlugin 用途：js压缩
         // 用法： new webpack.optimize.UglifyJsPlugin()
-        //（6）OccurrenceOrderPlugin 用途：排序输出；
+        //（6）OccurrenceOrderPlugin 用途：排序输出；用法： new webpack.optimize.OccurrenceOrderPlugin(true)
         //（7）CommonsChunkPlugin 用途：合并公共模块为单独文件，比如全局通用的js等，长期不会修改的，从而可以从缓存中取，优化网页性能 
-        // new webpack.optimize.CommonsChunkPlugin({
+        // 用法：new webpack.optimize.CommonsChunkPlugin({
         //     names: ['vendor']
         // })
     </script>
