@@ -93,6 +93,20 @@
         //强类型是指不允许隐式变量类型转换，弱类型则允许隐式类型转换。弱类型语言，如javascript、php。强类型语言，如Java。
         //组件封装的原则：高内聚（可读性、复用性、可维护性和易变更性），低耦合（低耦合是用来度量模块与模块直接的依赖关系。模块之间不要过度依赖其他模块）
 
+        //directive钩子：
+        // bind: 只调用一次，指令第一次绑定到元素时调用，用这个钩子函数可以定义一个在绑定时执行一次的初始化动作。
+        // inserted: 被绑定元素插入父节点时调用（父节点存在即可调用，不必存在于 document 中）。
+        // update: 被绑定元素所在的模板更新时调用，而不论绑定值是否变化。
+        // componentUpdated: 被绑定元素所在模板完成一次更新周期时调用。
+        // unbind: 只调用一次，指令与元素解绑时调用。
+
+        //路由跳转 hash 与 history(go、forward、back)
+        //https://www.cnblogs.com/karthuslorin/p/9450068.html
+        //history使用pushState的第一个参数进行传值，使用History的state属性进行取值
+        //pushState(params,新页面title,新页面路由url)
+        //popstate 事件监听
+        //replaceState 该方法基本和pushState一致，但是不同的是，该方法会直接替换当前的历史记录
+        //console.log(eval('(2+3+4)-6'))
     </script>
 </body>
 
