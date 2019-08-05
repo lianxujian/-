@@ -95,6 +95,11 @@
         //mvvm 和 mvc的区别：mvc和mvvm其实区别并不大。都是一种设计思想。主要就是mvc中Controller演变成mvvm中的viewModel。mvvm主要解决了mvc中大量的DOM 操作
         // 使页面渲染性能降低，加载速度变慢，影响用户体验。和当 Model 频繁发生变化，开发者需要主动更新到View
 
+        function a(){
+            console.log(this)
+        }
+        a.call(123) //Number
+        //vue emit on原理：发布订阅者模式
     </script>
 </body>
 

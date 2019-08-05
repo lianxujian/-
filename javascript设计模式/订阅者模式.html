@@ -10,57 +10,57 @@
 
 <body>
     <script>
-        function Public() {
-            //存放订阅者信息
-            this.subscribers = [];
-
-            //添加订阅者
-            this.addSubscriber = function(subscriber) {
-
-                //保证一个订阅者只能订阅一次
-                let isExist = this.subscribers.some(function(item) {
-                    return item == subscriber;
-                })
-
-                if (!isExist) {
-                    this.subscribers.push(subscriber);
+        function rockets(){//信道
+            this.subers = {};
+        }
+        rockets.prototype.addSub = function(type,func){
+            if(!(this.subers[type] instanceof Array)){
+                this.subers[type] = [];
+            }
+            this.subers[type].push(func);
+        }
+        rockets.prototype.removeSub = function(type,func){
+            var typeFunc = this.subers[type];
+            if(!(typeFunc instanceof Array)){
+                return;
+            }
+            var len = typeFunc.length;
+            for(var i = 0;i < len; i++){
+                if(typeFunc[i] == func){
+                    typeFunc.splice(i,1);
                 }
-
-                return this;
             }
-
-            //发布消息
-            this.deliver = function(data) {
-                this.subscribers.forEach(function(fn) {
-                    fn(data)
-                })
-
-                return this;
+        }
+        rockets.prototype.fire = function(type,msg){
+            var typeFunc = this.subers[type];
+            var len = typeFunc.length;
+            for(var i = 0;i < len; i++){
+                typeFunc[i](msg);
             }
         }
 
-        //订阅者
-        let a = function(data) {
-            console.log(`订阅者a收到订阅信息：${data}`)
+        function Dog(){
+            this.rockets = new rockets();
         }
-        let b = function(data) {
-            console.log(`订阅者b收到订阅信息：${data}`)
+        Dog.prototype.fire = function(type,msg){
+            this.rockets.fire(type,msg);
         }
-        let c = function(data) {
-            console.log(`订阅者c收到订阅信息：${data}`)
+        const fn1 = function(msg){
+            console.log('订阅者1接收' + msg)
+        }
+        const fn2 = function(msg){
+            console.log('订阅者2接收' + msg)
         }
 
-        //初始化
-        let publisher = new Public();
+        const subscriber = new Dog();
 
-        //添加订阅者
-        publisher.addSubscriber(a);
-        publisher.addSubscriber(b).addSubscriber(c);
-        console.log(publisher)
+        subscriber.rockets.addSub('a',fn1);
+        subscriber.rockets.addSub('a',fn2);
+        subscriber.rockets.removeSub('a',fn2);
+        subscriber.fire('a','消息a')
 
-        //公众号发布消息
-        //publisher.deliver('这是公众号推送的第1条新信息！');
-        //publisher.deliver('这是公众号推送的第2条新信息！').deliver('这是公众号推送的第3条新信息！');
+        /*观察者模式与发布订阅者区别：观察者模式中观察者和目标直接进行交互，而发布订阅模式中统一由调度中心进行处理，订阅者和发布者互不干扰。这样一方面实现了解耦，还有就是可以实现更细粒度的一
+        些控制。比如发布者发布了很多消息，但是不想所有的订阅者都接收到，就可以在调度中心做一些处理，类似于权限控制之类的。还可以做一些节流操作。*/
     </script>
 </body>
 
