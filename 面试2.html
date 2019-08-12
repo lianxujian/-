@@ -109,6 +109,37 @@
         //popstate 事件监听
         //replaceState 该方法基本和pushState一致，但是不同的是，该方法会直接替换当前的历史记录
         //console.log(eval('(2+3+4)-6'))
+
+        function a(){
+            console.log(this)
+        }
+        a.call(123) //Number
+        //vue emit on原理：发布订阅者模式
+
+        class A {
+            a = 1;
+            constructor(){}
+            static abc(){
+                console.log('静态属性');
+            }
+            abc(){
+
+            }
+        }
+        //A()//报错   类必须使用new调用，否则会报错。这是它跟普通构造函数的一个主要区别，普通构造函数不用new也可以执行
+        A.abc() //静态属性
+        console.log(new A() instanceof A);//true
+        console.log(new A().a); //1 另一种定义属性的方式
+
+        class Foo {
+            static classMethod() {
+                return 'hello';
+            }
+        }
+        class Bar extends Foo {
+        }
+        Bar.classMethod() // 'hello'
+        //父类的静态方法，可以被子类继承
     </script>
 </body>
 
