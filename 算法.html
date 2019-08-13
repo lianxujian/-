@@ -121,13 +121,50 @@
         name:'obj',
         hi(){
             return ()=>{
-                console.log(this.name)
+                //console.log(this.name)
             };
         }
     }
     var h2 = obj.hi();
     h2()            //'obj'
     obj.hi().call(obj,window)  //'obj'
+
+    function foo(x){
+        var tmp = 3;
+        return function(y){
+            console.log(x,y,++tmp);//2 10 4
+        }
+    }
+    var bar = foo(2);
+    bar(10)
+
+    var name = 'The Window';
+    var object = {
+        name:'My Object',
+        getNameFunc:function(){
+            return function(){
+                return this.name;
+            }
+        }
+    }
+    console.log(object.getNameFunc()());//The Window
+
+    function sayHi(){
+        var say = function(){console.log(hi)}
+        var hi = 'Hi';
+        return say;
+    }
+    sayHi();
+    sayHi()();//Hi
+
+    function setName(obj){
+        obj.name = 'Nicholas';
+        obj = new Object();
+        obj.name = 'Greg';
+    }
+    var person = new Object();
+    setName(person);//Nicholas
+    console.log(person.name);
 </script>
 
 </html>
