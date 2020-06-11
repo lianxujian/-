@@ -13,27 +13,41 @@
     <button class="btn">按钮</button>
 </body>
 <script>
-    // 函数节流
-    var timer = null;
-    document.querySelector('.input').onkeyup = function() {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-            console.log(1)
-        }, 1000)
+    //截流 暴力点击事件
+    const throttle = (fn, wait=50)=>{
+      let lastTime = 0
+      //外层只执行一次
+      return function(...args){
+        //...args解构成[args]
+        // 返回节流的函数
+        let now = new Date()
+        if(now-lastTime>wait){
+          // 和上次执行的时间差，大于指定的间隔
+          lastTime = now
+          fn.apply(this,args)
+        }
+      }
     }
 
-    // 函数防抖
-    var flag = true;
-    document.querySelector('.btn').onclick = function() {
-        if (!flag) {
-            return false;
-        }
-        flag = false;
-        setTimeout(() => {
-            console.log(123)
-            flag = true;
-        }, 1000)
+    //防抖 输入框输入键盘抬起校验
+    const debounce = (fn, wait=500)=>{
+      let timer
+      return function(...args){
+        if(timer) clearTimeout(timer)
+        timer = setTimeout(()=>{
+          fn.apply(this, args)
+        }, wait)
+      }
     }
+    
+    document.querySelector('.input').onkeyup = debounce(function(){
+        console.log('正在输入...');
+        
+    },600)
+    document.querySelector('.btn').onclick = throttle(function(e){
+        console.log('正在点击');
+        
+    },2000)
 </script>
 
 </html>
