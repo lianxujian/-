@@ -18,14 +18,14 @@
             return 'ending';
         }
         var hw = helloWorldGenerator();
-        //console.log(hw.next());
-        // { value: 'hello', done: false }
-        //console.log(hw.next());
-        // { value: 'world', done: false }
-        //console.log(hw.next());
-        // { value: 'ending', done: true }
-        //console.log(hw.next());
-        // { value: undefined, done: true }
+        // console.log(hw.next());
+        // //{ value: 'hello', done: false }
+        // console.log(hw.next());
+        // //{ value: 'world', done: false }
+        // console.log(hw.next());
+        // //{ value: 'ending', done: true }
+        // console.log(hw.next());
+        //{ value: undefined, done: true }
         //由于 Generator 函数返回的遍历器对象，只有调用next方法才会遍历下一个内部状态，所以其实提供了一种可以暂停执行的函数。yield表达式就是暂停标志
 
         //----------------传参--------------
@@ -36,14 +36,15 @@
         }
 
         var a = foo(5);
-        a.next() // Object{value:6, done:false}
-        a.next() // Object{value:NaN, done:false}
-        a.next() // Object{value:NaN, done:true}
+        // console.log(a.next()); // Object{value:6, done:false}
+        // console.log(a.next()); // Object{value:NaN, done:false}
+        // console.log(a.next()); // Object{value:NaN, done:true}
 
         var b = foo(5);
-        b.next() // { value:6, done:false }
-        b.next(12) // { value:8, done:false }
-        b.next(13) // { value:42, done:true }
+        // console.log(b.next());// { value:6, done:false }
+        // console.log(b.next(12)); // { value:8, done:false } 24/3
+        // console.log(b.next(13)); // { value:42, done:true } 5+24+13
+        //注意：next方法的参数表示上一个yield表达式的返回值
 
         //----------------ajax---------------
         /*function* main() {
@@ -57,7 +58,7 @@
             });
         }
         var it = main();
-        it.next();*/
+        it.next();
 
         //-------------thunk函数-------------
         //Thunk 函数是自动执行 Generator 函数的一种方法
@@ -74,18 +75,18 @@
         }*/
 
         // ES6版本
-        const Thunk = function(fn) {
-            return function (...args) {
-                return function (callback) {
-                    return fn.call(this, ...args, callback);
-                }
-            };
-        };
-        function f(a, cb) {
-            cb(a);
-        }
-        const ft = Thunk(f);
-        ft(1)(console.log) // 1 懵逼
+        // const Thunk = function(fn) {
+        //     return function (...args) {
+        //         return function (callback) {
+        //             return fn.call(this, ...args, callback);
+        //         }
+        //     };
+        // };
+        // function f(a, cb) {
+        //     cb(a);
+        // }
+        // const ft = Thunk(f);
+        // ft(1)(console.log) // 1 懵逼
 
         //-----------------------co模块------------------------
         //co 用于 Generator 函数的自动执行

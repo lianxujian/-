@@ -10,9 +10,12 @@
         html {
             margin: 0;
             padding: 0;
+        }
+
+        body{
             font-size: 0.12rem;
         }
-        
+
         .box {
             width: 100px;
             height: 100px;
@@ -44,7 +47,7 @@
         $("#select").find("option[value='北京']").attr("selected", true);
         //默认1rem为16px;如果设置html{font-size:100px;}那就改变默认设置成1rem为100px了;
 
-        /*720代表设计师给的设计稿的宽度，你的设计稿是多少，就写多少;100代表换算比例，这里写100是
+        /*414代表设计师给的设计稿的宽度，你的设计稿是多少，就写多少;100代表换算比例，这里写100是
           为了以后好算,比如，你测量的一个宽度是100px,就可以写为1rem,以及1px=0.01rem等等*/
         getRem(414, 100)
     };

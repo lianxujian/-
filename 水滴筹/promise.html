@@ -17,17 +17,18 @@
 				self.status = 'resolved';
 				self.msg = success;
 				for (const { resolve } of self.statusSave) {
-					resolve(success);
-				}
+					if(resolve && typeof resolve == 'function')resolve(success);
+                }
+                
 			},function(){//reject函数的实现
 				var err = arguments[0];//resolve函数传入的参数
 				self.status = 'rejected';
 				self.msg = err;
 				for (const { reject } of self.statusSave) {
-					reject(err);
+					if(reject && typeof reject == 'function')reject(err);
 				}
 			});
-			// return this;
+			return this;
 		}
 		_Promise.prototype.then = function(){
 			var resolve = arguments[0];
@@ -37,17 +38,34 @@
 			}else if(this.status == 'rejected'&& reject){
 				reject(this.msg);
 			}else{
+                //前两个if同步，这个异步操作。
 				this.statusSave.push({resolve,reject});//
-			}
+            }
+            return this;
+        }
+        
+        _Promise.prototype.catch = function(){
+			var reject = arguments[0];
+			if(this.status == 'rejected'&& reject){
+				reject(this.msg);
+			}else{
+				this.statusSave.push({reject});//
+            }
+            return this;
 		}
 		//同步
-		new _Promise((resolve,reject) => {reject('async emit')}).then(function(msg){
+		new _Promise((resolve,reject) => {
+            reject('async emit')
+        }).then(function(msg){
 			console.log(msg);
 			console.log('success');
 		},function(msg){
 			console.log(msg);
 			console.log('fail!');
-		});
+		}).catch(err => {
+            console.log('----catch-----' + err);
+            
+        })
 		//async emit
 		//fail
 		//异步
@@ -61,9 +79,12 @@
 		},function(msg){
 			console.log(msg);
 			console.log('fail!');
-		});
+		}).catch(err => {
+            console.log('----catch-----' + err);
+            
+        })
 
-        //Promise本轮事件循环的开始，setTimeout下一轮事件循环的开始
+        //Promise本轮事件循环的结束，setTimeout下一轮事件循环的开始
         //Promise.then()  catch()  finally()  all()  race()  resolve()  reject()   catch()可以捕捉到then()里的报错（catch()在then()后面执行）
 	</script>
 </body>
