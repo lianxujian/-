@@ -77,6 +77,22 @@
         var A = new Function();
         Function.prototype = A;
         //上文提到凡是通过 new Function( ) 产生的对象都是函数对象。因为 A 是函数对象，所以Function.prototype 是函数对象。
+
+        //进阶 => 2
+        // var obj = {}
+        // var obj = new Object()
+        // obj.constructor === Object
+        // obj.__proto__ === Object.prototype
+
+        //function Person(){}
+        //var person1 = new Person();
+        // person1.__proto__ === Person.prototype
+        // Person.__proto__ === Function.prototype
+        // Person.prototype.__proto__ === Object.prototype
+        // Object.__proto__ === Function.prototype
+        // Object.prototype.__proto__ === null
+
+        
     </script>
 </body>
 

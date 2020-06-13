@@ -10,10 +10,15 @@
 
 <body>
     <script>
+        //1、---------------------  set 特性：--------------------------
+        //似于数组，但它的一大特性就是所有元素都是唯一的，没有重复。
+        // 可以使用Set实例对象的keys()，values()，entries()方法进行遍历。
+        // 由于Set的键名和键值是同一个值，它的每一个元素的key和value是相同的，所有keys()和values()的返回值是相同的，entries()返回的元素中的key和value是相同的。
+
         //数组去重
-        // let set = new Set([1, 2, 3]);
-        // console.log([...set]);
-        // //console.log(set.has(1));
+        // let set = new Set([1, 2, 3, 1, 4]);
+        // console.log(set, [...set]); //[1,2,3,4]
+        // console.log(set.has(1));    //true  
 
         // //字符串去重
         // console.log([...new Set('ababbc')].join(''))
@@ -26,14 +31,18 @@
 
         // console.log(Array.from(new Set([1, 2, 2, 3, 4])))
 
-        let set = new Set(['red', 'green', 'blue']);
+        // let set = new Set(['red', 'green', 'blue']);
 
-        for (let item of set.keys()) { //values()  entries() (["red", "red"])  或者直接遍历set
-            console.log(item);
-        }
-        //new Map() 与 Object 的区别 键名是否可以是对象
-        //Set只能存一个值，Map存两个值（键名和键值）
+        // for (let item of set.keys()) { //values()    entries() (["red", "red"])  或者直接遍历set
+        //     console.log(item);
+        // }
 
+        //2、---------------------  map对象 特性：--------------------------
+        //new Map() 与 Object 的区别
+        //一个 Object 的键只能是字符串或者 Symbols，但一个 Map 的键可以是任意值
+        //new Map()可以set get存取值
+
+        //------  便历器generator  ------
         let arr = ['a', 'b', 'c'];
         let iter = arr[Symbol.iterator](); //便历器
 
@@ -42,24 +51,60 @@
         // console.log(iter.next()) // { value: 'c', done: false }
         // console.log(iter.next()) // { value: undefined, done: true }
 
-        //Proxy Object拦截
-        var obj = new Proxy({}, {
-            get: function(target, key, receiver) {
-                console.log(`getting ${key}!`);
-                return Reflect.get(target, key, receiver);
-            },
-            set: function(target, key, value, receiver) {
-                console.log(`setting ${key}!`);
-                return Reflect.set(target, key, value, receiver);
-            }
-        });
-        obj.count = 1
-            //  setting count!
-            ++obj.count
-            //  getting count!
-            //  setting count!
-            //  2
-            //console.log(obj.count)
+        //3、---------------------  Proxy Object拦截：--------------------------
+        
+        //1、
+        // let numericDataStore = { 
+        //     count: 0,
+        //     amount: 1234,
+        //     total: 14
+        // };
+        
+        // numericDataStore = new Proxy(numericDataStore, { 
+        //     set(target, key, value, proxy) {
+        //         if (typeof value !== 'number') {
+        //         throw Error("Properties in numericDataStore can only be numbers");
+        //         }
+        //         return Reflect.set(target, key, value, proxy);
+        //     }
+        // });
+        
+        // // 抛出错误，因为 "foo" 不是数值
+        // //numericDataStore.count = "foo";
+        
+        // // 赋值成功
+        // numericDataStore.count = 333;
+        
+        //2、
+        var obj = {
+            name:'zhangsan'
+        }
+        //未使用proxy实现zhangsan 访问的时候是 zhang先生
+        // var objCopy = {
+        //     name:'zhangsan'
+        // };
+        // Object.defineProperty(obj,"name",{
+        //     get:function(){
+        //         return objCopy.name.replace(/san/,'先生')
+        //     }
+        // })
+        // console.log(obj.name);
+
+        //使用proxy obj可以是数组
+        var objCopy = new Proxy(obj,{
+          get:function(target,key){
+              console.log('getting');
+                if(key=='name'){
+                      return target[key].replace(/san/,'先生');
+                }
+          }
+        })
+        console.log(objCopy.name);//zhang先生
+        objCopy.name = 'lianxujian'
+        console.log(obj.name);//lianxujian  
+        // 可通过objCopy.name的方式访问obj的name属性，也可以通过objCopy.name='lisi'的方式设置obj的name属性，而且不用给每个属性都设置set,get方法，不会触发循环调用，很是爽的。
+        // 这样我们通过对objCopy对象的操作就实现了对obj对象的操作，objCopy对象就是obj对象的代理对象
+        
     </script>
 </body>
 
