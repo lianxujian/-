@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>继承</title>
+</head>
+<body>
+	<script>
+		//1、原型链继承
+        function Cat(){ 
+        }   
+        Cat.prototype = new Animal();
+        Cat.prototype.name = 'cat';
+        //2、构造继承
+        function Cat(name){
+            Animal.call(this);
+            this.name = name || 'Tom';
+        }
+        //3、实例继承
+        function Cat(name){
+            var instance = new Animal();
+            instance.name = name || 'Tom';
+            return instance;
+        }
+        //4、拷贝继承
+        function Cat(name){
+            var animal = new Animal();
+            for(var p in animal){
+                Cat.prototype[p] = animal[p];
+            }
+            Cat.prototype.name = name || 'Tom';
+        }
+        //5、组合继承
+        function Cat(name){
+            Animal.call(this);
+            this.name = name || 'Tom';
+        }
+        Cat.prototype = new Animal();
+        //6、寄生组合继承
+        function Cat(name){
+            Animal.call(this);
+            this.name = name || 'Tom';
+        }
+        (function(){
+            // 创建一个没有实例方法的类
+            var Super = function(){};
+            Super.prototype = Animal.prototype;
+            //将实例作为子类的原型
+            Cat.prototype = new Super();
+        })();
+	</script>
+</body>
+</html>
